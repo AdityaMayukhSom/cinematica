@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 const MovieDetailedCard = (props) => {
-  let movieID = props.movieID;
   let modifiedDateString, releaseDateString;
 
   const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780";
@@ -44,8 +43,7 @@ const MovieDetailedCard = (props) => {
   }
 
   useEffect(() => {
-    movieID = props.movieID;
-    getMovieDetailsForDetailedCard(movieID);
+    getMovieDetailsForDetailedCard(props.movieID);
   }, [props.shouldDetailedCardShow]);
 
   return (

@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 /* this function returns the shortened name of the movies upto the given specific name */
-const maxNameLength = 28;
-
 const MovieCard = (props) => {
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
   const BASE_URL = "https://api.themoviedb.org/3/";
@@ -40,7 +38,7 @@ const MovieCard = (props) => {
 
   useEffect(() => {
     getMovieDetails(props.movieID);
-  }, [getMovieDetails, props.movieID]);
+  }, []);
 
   return (
     /* This card is the one which is shown on initial pageload i.e. trending movies page */
