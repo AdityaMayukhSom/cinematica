@@ -29,7 +29,7 @@ function TrendingMovies(props) {
                 />
               );
             } else {
-              return;
+              return null;
             }
           })
         );
@@ -61,6 +61,8 @@ function TrendingMovies(props) {
                   movieID={data.results[index].id}
                 />
               );
+            } else {
+              return null;
             }
           })
         );

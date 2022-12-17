@@ -2,17 +2,6 @@ import { useEffect, useRef, useState } from "react";
 
 /* this function returns the shortened name of the movies upto the given specific name */
 const maxNameLength = 28;
-function truncate(str, useWordBoundary) {
-  if (str.length <= maxNameLength) {
-    return str;
-  }
-  const subString = str.slice(0, maxNameLength - 1); // the original check
-  return (
-    (useWordBoundary
-      ? subString.slice(0, subString.lastIndexOf(" "))
-      : subString) + "..."
-  );
-}
 
 const MovieCard = (props) => {
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
@@ -51,7 +40,7 @@ const MovieCard = (props) => {
 
   useEffect(() => {
     getMovieDetails(props.movieID);
-  }, []);
+  }, [getMovieDetails, props.movieID]);
 
   return (
     /* This card is the one which is shown on initial pageload i.e. trending movies page */
@@ -67,7 +56,7 @@ const MovieCard = (props) => {
     >
       <div className="movie-rating-container">{movieRating}</div>
       <div className="movies-card-poster-container">
-        <img src={moviePosterURL} className="movies-card-poster" />
+        <img src={moviePosterURL} className="movies-card-poster" alt="" />
       </div>
       <p className="movie-card-movie-name">{movieName}</p>
     </div>

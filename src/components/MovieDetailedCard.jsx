@@ -76,7 +76,7 @@ const MovieDetailedCard = (props) => {
           <img
             className="modal-movie-poster"
             src={moviePosterURL}
-            alt="Cover Image"
+            alt="Movie Poster"
           />
           <div className="modal-movie-description-text">
             <p style={{ marginTop: "10px", marginBottom: "10px" }}>
