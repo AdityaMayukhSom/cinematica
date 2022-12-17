@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+import fetch from 'node-fetch'
 const handler = async function (event) {
   // const REQUEST_URL = "".concat(BASE_URL, "configuration?api_key=", API_KEY);
   const BASE_URL = process.env.TMDB_BASE_URL;
