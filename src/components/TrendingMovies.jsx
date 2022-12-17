@@ -7,46 +7,32 @@ function TrendingMovies(props) {
   const [detailedMovieId, setDetailedMovieId] = useState(76600);
   const [shouldDetailedCardShow, setShouldDetailedCardShow] = useState(false);
   const [titleText, setTitleText] = useState(`Most Recent Movies`);
-  const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
-  const BASE_URL = "https://api.themoviedb.org/3/";
-  const TRENDING_BASE_URL = "".concat(
-    "https://api.themoviedb.org/3/trending/movie/day?api_key=",
-    API_KEY
-  );
 
   function getTrendingMovieInfo() {
-    let requestURL = "".concat(BASE_URL, "configuration?api_key=", API_KEY);
-
-    fetch(requestURL)
+    fetch(`/.netlify/functions/gettrendingmoviesinfo`)
       .then((result) => {
         return result.json();
       })
-      .then(() => {
-        fetch(TRENDING_BASE_URL)
-          .then((result) => {
-            return result.json();
+      .then((result) => {
+        return result.trendingMovies;
+      })
+      .then((data) => {
+        setSearchResults(
+          data.results.map((_, index) => {
+            if (data.results[index].poster_path) {
+              return (
+                <MovieCard
+                  setShouldDetailedCardShow={setShouldDetailedCardShow}
+                  setDetailedMovieId={setDetailedMovieId}
+                  key={data.results[index].id}
+                  movieID={data.results[index].id}
+                />
+              );
+            } else {
+              return;
+            }
           })
-          .then((data) => {
-            setSearchResults(
-              data.results.map((_, index) => {
-                if (data.results[index].poster_path) {
-                  return (
-                    <MovieCard
-                      setShouldDetailedCardShow={setShouldDetailedCardShow}
-                      setDetailedMovieId={setDetailedMovieId}
-                      key={data.results[index].id}
-                      movieID={data.results[index].id}
-                    />
-                  );
-                } else {
-                  return;
-                }
-              })
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -54,43 +40,30 @@ function TrendingMovies(props) {
   }
 
   function searchMovie(enteredMovieName) {
-    let requestURL = "".concat(BASE_URL, "configuration?api_key=", API_KEY);
-    fetch(requestURL)
+    console.log("search movies called");
+    fetch(`/.netlify/functions/searchmovie?moviename=${enteredMovieName}`)
       .then((result) => {
         return result.json();
       })
-      .then(() => {
-        let movieSearchURL = "".concat(
-          BASE_URL,
-          "search/movie?api_key=",
-          API_KEY,
-          "&query=",
-          enteredMovieName
+      .then((result) => {
+        return result.foundMovies;
+      })
+      .then((data) => {
+        console.log(data);
+        setSearchResults(
+          data.results.map((_, index) => {
+            if (data.results[index].poster_path) {
+              return (
+                <MovieCard
+                  setShouldDetailedCardShow={setShouldDetailedCardShow}
+                  setDetailedMovieId={setDetailedMovieId}
+                  key={data.results[index].id}
+                  movieID={data.results[index].id}
+                />
+              );
+            }
+          })
         );
-        fetch(movieSearchURL)
-          .then((result) => {
-            return result.json();
-          })
-          .then((data) => {
-            setSearchResults(
-              data.results.map((_, index) => {
-                if (data.results[index].poster_path) {
-                  return (
-                    <MovieCard
-                      setShouldDetailedCardShow={setShouldDetailedCardShow}
-                      setDetailedMovieId={setDetailedMovieId}
-                      key={data.results[index].id}
-                      movieID={data.results[index].id}
-                    />
-                  );
-                }
-              })
-            );
-          })
-          .catch((err) => {
-            console.log("Error Occured");
-            console.log(err);
-          });
       })
       .catch((err) => {
         console.log("Error Occured");
@@ -100,7 +73,7 @@ function TrendingMovies(props) {
 
   useEffect(() => {
     if (props.searchMovieName !== "") {
-        setTitleText(`Results for ${props.searchMovieName.replace('+',' ')}...`)
+      setTitleText(`Results for ${props.searchMovieName.replace("+", " ")}...`);
       searchMovie(props.searchMovieName);
     }
   }, [props.searchMovieName]);
@@ -123,5 +96,4 @@ function TrendingMovies(props) {
     </main>
   );
 }
-
 export default TrendingMovies;

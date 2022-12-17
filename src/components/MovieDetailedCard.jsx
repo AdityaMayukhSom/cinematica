@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 const MovieDetailedCard = (props) => {
   let movieID = props.movieID;
   let modifiedDateString, releaseDateString;
-  const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
-  const BASE_URL = "https://api.themoviedb.org/3/";
+
   const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780";
 
   const [movieName, setMovieName] = useState("");
@@ -15,17 +14,12 @@ const MovieDetailedCard = (props) => {
   const [moviePosterURL, setMoviePosterURL] = useState("");
 
   function getMovieDetailsForDetailedCard(movieID) {
-    const detailRequestURL = "".concat(
-      BASE_URL,
-      "movie/",
-      movieID,
-      "?api_key=",
-      API_KEY,
-      "&language=en-US"
-    );
-    fetch(detailRequestURL)
+    fetch(`/.netlify/functions/get-movie-details?movieID=${movieID}`)
       .then((result) => {
         return result.json();
+      })
+      .then((result) => {
+        return result.movieDetails;
       })
       .then((data) => {
         setMovieName(data.original_title);
