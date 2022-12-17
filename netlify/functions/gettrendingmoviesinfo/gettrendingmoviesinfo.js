@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 const handler = async function () {
 	console.log("process env")
 	// const REQUEST_URL = "".concat(BASE_URL, "configuration?api_key=", API_KEY);
