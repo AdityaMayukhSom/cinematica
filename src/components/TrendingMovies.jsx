@@ -43,7 +43,6 @@ function TrendingMovies(props) {
   }
 
   function searchMovie(enteredMovieName) {
-    console.log("search movies called");
     fetch(`/.netlify/functions/searchmovie?moviename=${enteredMovieName}`)
       .then((result) => {
         return result.json();

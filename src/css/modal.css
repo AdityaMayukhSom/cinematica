@@ -21,7 +21,7 @@
     padding-bottom: 30px;
     padding-left: 30px;
     padding-right: 30px;
-    min-width: 300px;
+    min-width: 200px;
     max-width: 600px;
     background: white;
 }
@@ -65,9 +65,22 @@
     padding-right: 30px;
 }
 
-@media(max-width: 768px) {
+@media(max-width: 760px) {
+
+    .modal-movie-poster-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
     .modal-movie-description {
         flex-direction: column;
+    }
+
+    .modal-movie-poster {
+        height: 320px;
+        max-width: 100%;
     }
 
     .modal-movie-description-text {

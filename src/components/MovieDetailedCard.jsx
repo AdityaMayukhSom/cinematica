@@ -71,11 +71,13 @@ const MovieDetailedCard = (props) => {
           />
         </div>
         <div className="modal-movie-description">
-          <img
-            className="modal-movie-poster"
-            src={moviePosterURL}
-            alt="Movie Poster"
-          />
+          <span className="modal-movie-poster-container">
+            <img
+              className="modal-movie-poster"
+              src={moviePosterURL}
+              alt="Movie Poster"
+            />
+          </span>
           <div className="modal-movie-description-text">
             <p style={{ marginTop: "10px", marginBottom: "10px" }}>
               <span style={{ fontWeight: "bold" }}>Release Date: </span>
