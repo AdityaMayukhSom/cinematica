@@ -25,13 +25,15 @@
     max-width: 600px;
     background: white;
 }
-.modal-name-and-close-container{
+
+.modal-name-and-close-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
     padding-bottom: 10px;
 }
+
 .modal-movie-name {
     height: 21px;
     font-style: normal;
@@ -43,7 +45,8 @@
     color: #000000;
     text-align: center;
 }
-.modal-close-button{
+
+.modal-close-button {
     height: 30px;
     cursor: pointer;
 }
@@ -60,4 +63,15 @@
 .modal-movie-description-text {
     padding-left: 30px;
     padding-right: 30px;
+}
+
+@media(max-width: 768px) {
+    .modal-movie-description {
+        flex-direction: column;
+    }
+
+    .modal-movie-description-text {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
