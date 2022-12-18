@@ -12,7 +12,7 @@ const MovieDetailedCard = (props) => {
   const [movieVoteCount, setMovieVoteCount] = useState(0);
   const [moviePosterURL, setMoviePosterURL] = useState("");
 
-  function getMovieDetailsForDetailedCard(movieID) {
+  const getMovieDetailsForDetailedCard = (movieID) => {
     fetch(`/.netlify/functions/get-movie-details?movieID=${movieID}`)
       .then((result) => {
         return result.json();
@@ -44,7 +44,7 @@ const MovieDetailedCard = (props) => {
 
   useEffect(() => {
     getMovieDetailsForDetailedCard(props.movieID);
-  }, [props.shouldDetailedCardShow]);
+  }, [props.shouldDetailedCardShow, props.movieID]);
 
   return (
     <div

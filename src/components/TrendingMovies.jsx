@@ -25,6 +25,9 @@ function TrendingMovies(props) {
                   setShouldDetailedCardShow={setShouldDetailedCardShow}
                   setDetailedMovieId={setDetailedMovieId}
                   key={data.results[index].id}
+                  posterPath={data.results[index].poster_path}
+                  movieTitle={data.results[index].title}
+                  voteAverage={data.results[index].vote_average}
                   movieID={data.results[index].id}
                 />
               );
@@ -58,6 +61,9 @@ function TrendingMovies(props) {
                   setShouldDetailedCardShow={setShouldDetailedCardShow}
                   setDetailedMovieId={setDetailedMovieId}
                   key={data.results[index].id}
+                  posterPath={data.results[index].poster_path}
+                  movieTitle={data.results[index].original_title}
+                  voteAverage={data.results[index].vote_average}
                   movieID={data.results[index].id}
                 />
               );
