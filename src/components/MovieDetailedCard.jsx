@@ -53,7 +53,7 @@ const MovieDetailedCard = (props) => {
 
   return (
     <div
-      className="modal-background"
+      className="fixed z-20 left-0 top-0 w-full h-full overflow-none bg-black/70 flex justify-center items-center"
       onClick={() => {
         props.setShouldDetailedCardShow(false);
       }}
@@ -66,7 +66,9 @@ const MovieDetailedCard = (props) => {
           }}
         >
           <div className="flex justify-between items-center flex-row pb-3">
-            <span className="modal-movie-name">{movie.name}</span>
+            <span className="pb-2 font-semibold text-2xl pr-16 text-black">
+              {movie.name}
+            </span>
             <img
               className="cursor-pointer size-7"
               src="./multiply.svg"
@@ -89,11 +91,11 @@ const MovieDetailedCard = (props) => {
                 <span className="font-bold">Release Date: </span>
                 <span>{movie.releaseDate}</span>
               </p>
-              <p>{movie.overview}</p>
-              <span>
+              <p className="">{movie.overview}</p>
+              <div className="mt-4">
                 <span className="font-bold">{movie.rating}</span>
                 &nbsp;/&nbsp;10&nbsp;({movie.voteCount} total votes)
-              </span>
+              </div>
             </div>
           </div>
         </article>

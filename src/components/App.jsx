@@ -5,7 +5,7 @@ import TrendingMovies from "./TrendingMovies";
 function App() {
   const [searchMovieName, setSearchMovieName] = useState("");
   return (
-    <div className="App">
+    <div>
       <NavBar setSearchMovieName={setSearchMovieName} />
       <TrendingMovies searchMovieName={searchMovieName} />
     </div>
