@@ -15,6 +15,9 @@ const MovieDetailedCard = (props) => {
   const [movie, setMovie] = useState();
   const [loading, setLoading] = useState(false);
 
+  // TODO: Split into two functions, this function is doing too much, violaiting SRP
+  // this function should only fetch data from backend, setting the data or rendering
+  // should be done inside a separate function
   const getMovieDetailsForDetailedCard = async (movieID) => {
     try {
       setLoading(true);
@@ -47,18 +50,16 @@ const MovieDetailedCard = (props) => {
 
   useEffect(() => {
     getMovieDetailsForDetailedCard(props.movieID);
-  }, [props.shouldDetailedCardShow, props.movieID]);
+  }, [props.movieID]);
 
   return (
     <div
       className="fixed z-20 left-0 top-0 w-full h-full overflow-none bg-black/70 flex justify-center items-center"
-      onClick={() => {
-        props.setShouldDetailedCardShow(false);
-      }}
+      onClick={() => props.setShouldDetailedCardShow(false)}
     >
       {movie ? (
         <article
-          className="px-8 pt-6 pb-8 min-w-3xs max-w-4xl w-7/10 bg-white"
+          className="modal-container"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -71,24 +72,22 @@ const MovieDetailedCard = (props) => {
               className="cursor-pointer size-7"
               src="./multiply.svg"
               alt="close-modal"
-              onClick={() => {
-                props.setShouldDetailedCardShow(false);
-              }}
+              onClick={() => props.setShouldDetailedCardShow(false)}
             />
           </div>
           <div className="grid grid-cols-[auto_1fr]">
-            <span className="modal-movie-poster-container">
+            <span className="w-full flex justify-center items-center">
               <img
-                className="modal-movie-poster w-full"
+                className="modal-movie-poster w-full max-w-full h-80 md:h-[480px]"
                 src={movie.posterUrl}
                 alt="Movie Poster"
               />
             </span>
             <div className="px-2 md:px-8">
-              <p className="py-4">
+              <div className="py-4">
                 <span className="font-bold">Release Date: </span>
                 <span>{movie.releaseDate}</span>
-              </p>
+              </div>
               <p className="px-0">{movie.overview}</p>
               <div className="mt-4">
                 <span className="font-bold">{movie.rating}</span>
@@ -98,7 +97,7 @@ const MovieDetailedCard = (props) => {
           </div>
         </article>
       ) : loading ? (
-        <div className="modal-container min-h-64 flex items-center justify-center self-center text-center">
+        <div className="modal-container flex items-center justify-center">
           <p>Getting Movie Details For You...</p>
         </div>
       ) : (

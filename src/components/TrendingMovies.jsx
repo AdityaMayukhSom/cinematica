@@ -40,7 +40,7 @@ function TrendingMovies(props) {
       .replace(/\s/g, "+");
 
     try {
-      setTitleText(`Searching for ${enteredMovieName}...`);
+      setTitleText(`Searching For ${enteredMovieName}...`);
       setMovies([]);
 
       const result = await fetch(
@@ -49,7 +49,7 @@ function TrendingMovies(props) {
       const jsonData = await result.json();
       const movies = jsonData?.foundMovies?.results ?? [];
 
-      setTitleText(`Results for ${enteredMovieName}...`);
+      setTitleText(`Search Results For ${enteredMovieName}...`);
       setMovies(movies);
     } catch (err) {
       console.error("Error Occured", err);
@@ -97,7 +97,6 @@ function TrendingMovies(props) {
       )}
       {shouldDetailedCardShow && (
         <MovieDetailedCard
-          shouldDetailedCardShow={shouldDetailedCardShow}
           setShouldDetailedCardShow={setShouldDetailedCardShow}
           movieID={detailedMovieId}
         />

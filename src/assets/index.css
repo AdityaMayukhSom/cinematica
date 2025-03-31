@@ -6,39 +6,12 @@
 	font-optical-sizing: auto;
 }
 
+.modal-container {
+	@apply px-8 pt-6 pb-8 min-h-64 min-w-3xs max-w-4xl w-7/10 bg-white;
+}
 
 body {
-	margin: 0;
 	padding: 0px 8%;
-	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-.modal-movie-poster {
-	height: 450px;
-}
-
-@media(max-width: 760px) {
-
-	.modal-movie-poster-container {
-		display: flex;
-		width: 100%;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.modal-movie-description {
-		flex-direction: column;
-	}
-
-	.modal-movie-poster {
-		height: 320px;
-		max-width: 100%;
-	}
-
-	.modal-movie-description-text {
-		padding-left: 0;
-		padding-right: 0;
-	}
 }
