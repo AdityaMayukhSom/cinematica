@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { POSTER_BASE_URL } from "../constants";
 
 const MovieDetailedCard = (props) => {
   /**
@@ -13,8 +14,6 @@ const MovieDetailedCard = (props) => {
    */
   const [movie, setMovie] = useState();
   const [loading, setLoading] = useState(false);
-
-  const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780";
 
   const getMovieDetailsForDetailedCard = async (movieID) => {
     try {

@@ -3,7 +3,7 @@ import axios from 'axios'
 const handler = async function (event) {
 	const API_KEY = process.env.TMDB_API_KEY;
 	const movieID = event.queryStringParameters.movieID;
-	const DETAIL_SEARCH_URL = "".concat("https://api.themoviedb.org/3/movie/", movieID);
+	const DETAIL_SEARCH_URL = `https://api.themoviedb.org/3/movie/${movieID}`;
 
 	if(!API_KEY) {
 		throw new Error("-------- TMDB API KEY NOT PRESENT --------");
