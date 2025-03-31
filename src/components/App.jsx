@@ -3,13 +3,13 @@ import NavBar from "./NavBar";
 import TrendingMovies from "./TrendingMovies";
 
 function App() {
-    const [searchMovieName, setSearchMovieName] = useState("");
-    return (
-        <div className="App">
-            <NavBar setSearchMovieName = {setSearchMovieName}/>
-            <TrendingMovies searchMovieName = {searchMovieName}/>
-        </div>
-    );
+  const [searchMovieName, setSearchMovieName] = useState("");
+  return (
+    <div className="App">
+      <NavBar setSearchMovieName={setSearchMovieName} />
+      <TrendingMovies searchMovieName={searchMovieName} />
+    </div>
+  );
 }
 
 export default App;

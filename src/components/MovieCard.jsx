@@ -22,10 +22,12 @@ const MovieCard = (props) => {
         <img
           src={"".concat(POSTER_BASE_URL, props.posterPath)}
           className="movies-card-poster"
-          alt=""
+          alt={`${props.movieTitle}-movie-poster`}
         />
       </div>
-      <p className="movie-card-movie-name">{props.movieTitle}</p>
+      <div className="movie-card-movie-name-container">
+        <p className="movie-card-movie-name">{props.movieTitle}</p>
+      </div>
     </div>
   );
 };

@@ -98,9 +98,11 @@ const MovieDetailedCard = (props) => {
           </div>
         </article>
       ) : loading ? (
-        <div className="modal-container">Getting Movie Details For You...</div>
+        <div className="modal-container modal-loading-state">
+          <p>Getting Movie Details For You...</p>
+        </div>
       ) : (
-        <>Could not load movie details. Sorry!</>
+        <div>Could not load movie details. Sorry!</div>
       )}
     </div>
   );

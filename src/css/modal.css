@@ -27,6 +27,11 @@
 }
 
 .modal-loading-state {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
     text-align: center;
 }
 
@@ -39,15 +44,17 @@
 }
 
 .modal-movie-name {
-    height: 21px;
+    /* height: 21px; */
+    padding-bottom: 8px;
     font-style: normal;
     font-weight: 700;
-    font-size: 22px;
-    line-height: 28px;
-    display: flex;
-    align-items: center;
+    font-size: 1.3rem;
+    padding-right: 4rem;
+    /* line-height: 28px; */
+    /* display: flex; */
+    /* align-items: center; */
     color: #000000;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .modal-close-button {
