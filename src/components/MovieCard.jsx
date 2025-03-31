@@ -1,15 +1,13 @@
-import React, { useRef } from "react";
+import React from "react";
 import { POSTER_BASE_URL } from "../constants/index";
 
 /* this function returns the shortened name of the movies upto the given specific name */
 const MovieCard = (props) => {
-  let movieContainer = useRef(null);
   return (
     /* This card is the one which is shown on initial pageload i.e. trending movies page */
     /* this card contains the movie poster, movie name and movie rating */
     <div
       className="relative overflow-hidden grid cursor-pointer border border-gray-400"
-      ref={movieContainer}
       onClick={() => {
         props.setShouldDetailedCardShow(true);
         props.setDetailedMovieId(props.movieID);
@@ -22,7 +20,7 @@ const MovieCard = (props) => {
         <img
           src={"".concat(POSTER_BASE_URL, props.posterPath)}
           className="object-cover w-full"
-          alt={`${props.movieTitle}-movie-poster`}
+          alt={`${props.movieTitle} movie poster`}
         />
       </div>
       <div className="m-0 p-0 absolute bottom-0 w-full">

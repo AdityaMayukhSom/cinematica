@@ -7,6 +7,7 @@ const MovieSearchBox = (props) => {
     const enteredMovieName = e.target[1].value;
     props.setSearchMovieName(enteredMovieName);
   };
+
   return (
     <form
       className="flex justify-center items-center border border-neutral-400 gap-x-4 px-3 py-2 w-full sm:w-fit"
