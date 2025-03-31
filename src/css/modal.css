@@ -26,6 +26,10 @@
     background: white;
 }
 
+.modal-loading-state {
+    text-align: center;
+}
+
 .modal-name-and-close-container {
     display: flex;
     justify-content: space-between;
