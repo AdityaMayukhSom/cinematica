@@ -1,18 +1,15 @@
 import React from "react";
 
-const MovieInput = (props) => {
+const MovieSearchBox = (props) => {
   /** @type {React.FormEventHandler} */
   const handleSubmit = (e) => {
     e.preventDefault();
-    let enteredMovieName = e.target[1].value
-      .trim()
-      .toLowerCase()
-      .replace(/\s/g, "+");
+    const enteredMovieName = e.target[1].value;
     props.setSearchMovieName(enteredMovieName);
   };
   return (
     <form
-      className="flex justify-center items-center border border-neutral-400 gap-x-4 px-3 py-2"
+      className="flex justify-center items-center border border-neutral-400 gap-x-4 px-3 py-2 w-full sm:w-fit"
       id="nameInputForm"
       onSubmit={handleSubmit}
     >
@@ -27,7 +24,7 @@ const MovieInput = (props) => {
         </svg>
       </button>
       <input
-        className="text-sm active:outline-none outline-none border-none"
+        className="text-sm active:outline-none outline-none border-none w-full placeholder:text-neutral-400 text-black"
         type="search"
         id="movieName"
         name="movieName"
@@ -39,4 +36,4 @@ const MovieInput = (props) => {
   );
 };
 
-export default MovieInput;
+export default MovieSearchBox;

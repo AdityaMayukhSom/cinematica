@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
-
 * {
 	font-family: "Inter", sans-serif;
 	font-optical-sizing: auto;
@@ -16,27 +15,30 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.movie-search-input::placeholder {
-	color: rgb(134, 134, 134);
+.modal-movie-poster {
+	height: 450px;
 }
 
+@media(max-width: 760px) {
 
-@media (max-width: 560px) {
-	.navigation-bar {
+	.modal-movie-poster-container {
+		display: flex;
+		width: 100%;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.modal-movie-description {
 		flex-direction: column;
 	}
 
-	.navbar-company-logo-container {
-		padding-bottom: 15px;
+	.modal-movie-poster {
+		height: 320px;
+		max-width: 100%;
 	}
 
-	.search-box-container {
-		width: 100%;
-	}
-
-	.movie-search-input {
-		width: 100%;
+	.modal-movie-description-text {
+		padding-left: 0;
+		padding-right: 0;
 	}
 }

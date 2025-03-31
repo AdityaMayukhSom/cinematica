@@ -12,12 +12,14 @@ function TrendingMovies(props) {
    * }>>>}
    */
   const [movies, setMovies] = useState();
+  const [fetchingMovies, setFetchingMovies] = useState(true);
   const [detailedMovieId, setDetailedMovieId] = useState(76600);
   const [shouldDetailedCardShow, setShouldDetailedCardShow] = useState(false);
-  const [titleText, setTitleText] = useState(`Most Recent Movies`);
+  const [titleText, setTitleText] = useState(`Currently Trending Movies`);
 
   async function getTrendingMovieInfo() {
     try {
+      setFetchingMovies(true);
       const result = await fetch(
         `/.netlify/functions/get-trending-movies-info`
       );
@@ -26,25 +28,37 @@ function TrendingMovies(props) {
       setMovies(movies);
     } catch (err) {
       console.error("Error Occured", err);
+    } finally {
+      setFetchingMovies(false);
     }
   }
 
   async function searchMovie(enteredMovieName) {
+    const movieNameParam = enteredMovieName
+      .trim()
+      .toLowerCase()
+      .replace(/\s/g, "+");
+
     try {
+      setTitleText(`Searching for ${enteredMovieName}...`);
+      setMovies([]);
+
       const result = await fetch(
-        `/.netlify/functions/search-movie?moviename=${enteredMovieName}`
+        `/.netlify/functions/search-movie?moviename=${movieNameParam}`
       );
       const jsonData = await result.json();
       const movies = jsonData?.foundMovies?.results ?? [];
+
+      setTitleText(`Results for ${enteredMovieName}...`);
       setMovies(movies);
     } catch (err) {
       console.error("Error Occured", err);
+      setTitleText(`Error occurred while searching for ${enteredMovieName}!`);
     }
   }
 
   useEffect(() => {
     if (props.searchMovieName !== "") {
-      setTitleText(`Results for ${props.searchMovieName.replace("+", " ")}...`);
       searchMovie(props.searchMovieName);
     }
   }, [props.searchMovieName]);
@@ -56,27 +70,31 @@ function TrendingMovies(props) {
   return (
     <main className="flex w-full justify-center flex-col">
       <h2 className="py-8 text-2xl">{titleText}</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 pb-32">
-        {movies ? (
-          movies
-            .filter((movie) => movie.poster_path)
-            .map((movie) => {
-              return (
-                <MovieCard
-                  setShouldDetailedCardShow={setShouldDetailedCardShow}
-                  setDetailedMovieId={setDetailedMovieId}
-                  key={movie.id}
-                  posterPath={movie.poster_path}
-                  movieTitle={movie.original_title}
-                  voteAverage={movie.vote_average}
-                  movieID={movie.id}
-                />
-              );
-            })
-        ) : (
-          <>No Movies Available.</>
-        )}
-      </div>
+      {fetchingMovies ? (
+        <>Fetching Latest Trending Movies...</>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 pb-32">
+          {movies ? (
+            movies
+              .filter((movie) => movie.poster_path)
+              .map((movie) => {
+                return (
+                  <MovieCard
+                    setShouldDetailedCardShow={setShouldDetailedCardShow}
+                    setDetailedMovieId={setDetailedMovieId}
+                    key={movie.id}
+                    posterPath={movie.poster_path}
+                    movieTitle={movie.original_title}
+                    voteAverage={movie.vote_average}
+                    movieID={movie.id}
+                  />
+                );
+              })
+          ) : (
+            <>No Movies Available.</>
+          )}
+        </div>
+      )}
       {shouldDetailedCardShow && (
         <MovieDetailedCard
           shouldDetailedCardShow={shouldDetailedCardShow}

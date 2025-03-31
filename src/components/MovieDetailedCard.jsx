@@ -23,25 +23,23 @@ const MovieDetailedCard = (props) => {
       );
       const objectFromJson = await result.json();
       const data = objectFromJson.movieDetails;
-      const releaseDateString = new Date(data.release_date)
-        .toDateString()
-        .toString();
-      const modifiedDateString =
-        releaseDateString.substring(4, 10) +
-        ", " +
-        releaseDateString.substring(10);
+      const releaseDate = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      }).format(new Date(data.release_date));
 
       setMovie({
         name: data.original_title,
-        releaseDate: modifiedDateString,
+        releaseDate: releaseDate,
         rating: data.vote_average.toFixed(1),
         overview: data.overview,
         voteCount: data.vote_count,
         posterUrl: "".concat(POSTER_BASE_URL, data.poster_path),
       });
     } catch (err) {
-      setMovie(undefined);
       console.error("Error Occured", err);
+      setMovie(undefined);
     } finally {
       setLoading(false);
     }
@@ -60,7 +58,7 @@ const MovieDetailedCard = (props) => {
     >
       {movie ? (
         <article
-          className="modal-container"
+          className="px-8 pt-6 pb-8 min-w-3xs max-w-4xl w-7/10 bg-white"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -91,7 +89,7 @@ const MovieDetailedCard = (props) => {
                 <span className="font-bold">Release Date: </span>
                 <span>{movie.releaseDate}</span>
               </p>
-              <p className="">{movie.overview}</p>
+              <p className="px-0">{movie.overview}</p>
               <div className="mt-4">
                 <span className="font-bold">{movie.rating}</span>
                 &nbsp;/&nbsp;10&nbsp;({movie.voteCount} total votes)
