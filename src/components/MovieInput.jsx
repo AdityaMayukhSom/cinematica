@@ -12,17 +12,12 @@ const MovieInput = (props) => {
   };
   return (
     <form
-      className="search-box-container"
+      className="flex justify-center items-center border border-neutral-400 gap-x-4 px-3 py-2"
       id="nameInputForm"
       onSubmit={handleSubmit}
     >
-      <button type="submit" className="search-box-submit-button">
-        <svg
-          className="search-box-icon"
-          fill="none"
-          stroke="gray"
-          viewBox="0 0 24 24"
-        >
+      <button type="submit" className="bg-transparent cursor-pointer">
+        <svg className="size-4" fill="none" stroke="gray" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -32,11 +27,11 @@ const MovieInput = (props) => {
         </svg>
       </button>
       <input
-        className="movie-search-input"
+        className="text-sm active:outline-none outline-none border-none"
         type="search"
         id="movieName"
         name="movieName"
-        placeholder="Search for a movie"
+        placeholder="Search Movie"
         autoComplete="off"
         required
       />

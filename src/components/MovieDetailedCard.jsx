@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { POSTER_BASE_URL } from "../constants";
+import { POSTER_BASE_URL } from "../constants/index";
 
 const MovieDetailedCard = (props) => {
   /**
@@ -65,10 +65,10 @@ const MovieDetailedCard = (props) => {
             e.stopPropagation();
           }}
         >
-          <div className="modal-name-and-close-container">
+          <div className="flex justify-between items-center flex-row pb-3">
             <span className="modal-movie-name">{movie.name}</span>
             <img
-              className="modal-close-button"
+              className="cursor-pointer size-7"
               src="./multiply.svg"
               alt="close-modal"
               onClick={() => {
@@ -76,29 +76,29 @@ const MovieDetailedCard = (props) => {
               }}
             />
           </div>
-          <div className="modal-movie-description">
+          <div className="grid grid-cols-[auto_1fr]">
             <span className="modal-movie-poster-container">
               <img
-                className="modal-movie-poster"
+                className="modal-movie-poster w-full"
                 src={movie.posterUrl}
                 alt="Movie Poster"
               />
             </span>
-            <div className="modal-movie-description-text">
-              <p style={{ marginTop: "10px", marginBottom: "10px" }}>
-                <span style={{ fontWeight: "bold" }}>Release Date: </span>
+            <div className="px-2 md:px-8">
+              <p className="py-4">
+                <span className="font-bold">Release Date: </span>
                 <span>{movie.releaseDate}</span>
               </p>
               <p>{movie.overview}</p>
               <span>
-                <span style={{ fontWeight: "bold" }}>{movie.rating}</span>
+                <span className="font-bold">{movie.rating}</span>
                 &nbsp;/&nbsp;10&nbsp;({movie.voteCount} total votes)
               </span>
             </div>
           </div>
         </article>
       ) : loading ? (
-        <div className="modal-container modal-loading-state">
+        <div className="modal-container min-h-64 flex items-center justify-center self-center text-center">
           <p>Getting Movie Details For You...</p>
         </div>
       ) : (

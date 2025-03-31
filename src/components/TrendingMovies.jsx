@@ -54,9 +54,9 @@ function TrendingMovies(props) {
   }, []);
 
   return (
-    <main className="effective-page-body">
-      <h2 className="most-recent-movies-title">{titleText}</h2>
-      <div className="search-results-container">
+    <main className="flex w-full justify-center flex-col">
+      <h2 className="py-8 text-2xl">{titleText}</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 pb-32">
         {movies ? (
           movies
             .filter((movie) => movie.poster_path)

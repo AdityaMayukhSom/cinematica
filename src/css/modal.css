@@ -22,58 +22,22 @@
     padding-left: 30px;
     padding-right: 30px;
     min-width: 200px;
-    max-width: 600px;
+    max-width: 960px;
     background: white;
 }
 
-.modal-loading-state {
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    text-align: center;
-}
-
-.modal-name-and-close-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    padding-bottom: 10px;
-}
 
 .modal-movie-name {
-    /* height: 21px; */
     padding-bottom: 8px;
     font-style: normal;
     font-weight: 700;
     font-size: 1.3rem;
     padding-right: 4rem;
-    /* line-height: 28px; */
-    /* display: flex; */
-    /* align-items: center; */
     color: #000000;
-    /* text-align: center; */
-}
-
-.modal-close-button {
-    height: 30px;
-    cursor: pointer;
-}
-
-.modal-movie-description {
-    display: flex;
-    flex-direction: row;
 }
 
 .modal-movie-poster {
     height: 450px;
-}
-
-.modal-movie-description-text {
-    padding-left: 30px;
-    padding-right: 30px;
 }
 
 @media(max-width: 760px) {

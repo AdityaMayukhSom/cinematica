@@ -28,4 +28,5 @@ const handler = async function (event) {
 		}
 	}
 }
+
 module.exports = {handler}
