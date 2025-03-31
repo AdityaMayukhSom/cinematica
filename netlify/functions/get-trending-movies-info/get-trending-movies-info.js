@@ -1,23 +1,20 @@
 import axios from 'axios'
 
-const handler = async function (event) {
+const handler = async function () {
 	const API_KEY = process.env.TMDB_API_KEY;
-	const MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie";
+	const TRENDING_BASE_URL = "https://api.themoviedb.org/3/trending/movie/day";
 
 	if(!API_KEY) {
 		throw new Error("-------- TMDB API KEY NOT PRESENT --------");
 	}
 
 	try {
-		const {data} = await axios.get(MOVIE_SEARCH_URL, {
-			params: {
-				'api_key': API_KEY,
-				'query': event.queryStringParameters.moviename
-			}
+		const {data} = await axios.get(TRENDING_BASE_URL, {
+			params: {'api_key': API_KEY}
 		});
 		return {
 			statusCode: 200,
-			body: JSON.stringify({foundMovies: data})
+			body: JSON.stringify({trendingMovies: data})
 		}
 	} catch(error) {
 		console.error(error)
@@ -27,4 +24,5 @@ const handler = async function (event) {
 		}
 	}
 }
+
 module.exports = {handler}

@@ -1,39 +1,50 @@
-import { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 
 const MovieDetailedCard = (props) => {
-	let modifiedDateString, releaseDateString;
+	/**
+	* @type {ReturnType<typeof useState<{
+	*   name: string;
+	*   releaseDate: string;
+	*   rating: string;
+	*   overview: string;
+	*   voteCount: number;
+	*   posterUrl: string;
+	* } >>}
+	*/
+	const [movie, setMovie] = useState();
+	const [loading, setLoading] = useState(false);
 
 	const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780";
 
-	const [movieName, setMovieName] = useState("");
-	const [movieRating, setMovieRating] = useState(0);
-	const [movieReleaseDate, setMovieReleaseDate] = useState("");
-	const [movieOverView, setMovieOverView] = useState("");
-	const [movieVoteCount, setMovieVoteCount] = useState(0);
-	const [moviePosterURL, setMoviePosterURL] = useState("");
-
 	const getMovieDetailsForDetailedCard = async (movieID) => {
 		try {
+			setLoading(true);
 			const result = await fetch(`/.netlify/functions/get-movie-details?movieID=${movieID}`)
 			const objectFromJson = await result.json();
 			const data = objectFromJson.movieDetails;
-			setMovieName(data.original_title);
-			releaseDateString = new Date(data.release_date).toDateString().toString();
-			modifiedDateString = releaseDateString.substring(4, 10) + ", " + releaseDateString.substring(10);
-			setMovieReleaseDate(modifiedDateString);
-			setMovieRating(data.vote_average.toFixed(1));
-			setMovieOverView(data.overview);
-			setMovieVoteCount(data.vote_count);
-			setMoviePosterURL("".concat(POSTER_BASE_URL, data.poster_path));
-		} catch (err) {
-			console.log(err);
-			console.log("Error Occured");
+			const releaseDateString = new Date(data.release_date).toDateString().toString();
+			const modifiedDateString = releaseDateString.substring(4, 10) + ", " + releaseDateString.substring(10);
+
+			setMovie({
+				name: data.original_title,
+				releaseDate: modifiedDateString,
+				rating: data.vote_average.toFixed(1),
+				overview: data.overview,
+				voteCount: data.vote_count,
+				posterUrl: "".concat(POSTER_BASE_URL, data.poster_path)
+			})
+		} catch(err) {
+			setMovie(undefined)
+			console.error("Error Occured", err);
+		} finally {
+			setLoading(false)
 		};
 	}
 
 	useEffect(() => {
 		getMovieDetailsForDetailedCard(props.movieID);
 	}, [props.shouldDetailedCardShow, props.movieID]);
+
 
 	return (
 		<div
@@ -42,18 +53,18 @@ const MovieDetailedCard = (props) => {
 				props.setShouldDetailedCardShow(false);
 			}}
 		>
-			<article
+			{movie ? (<article
 				className="modal-container"
 				onClick={(e) => {
 					e.stopPropagation();
 				}}
 			>
 				<div className="modal-name-and-close-container">
-					<span className="modal-movie-name">{movieName}</span>
+					<span className="modal-movie-name">{movie.name}</span>
 					<img
 						className="modal-close-button"
 						src="./multiply.svg"
-						alt=""
+						alt="close-modal"
 						onClick={() => {
 							props.setShouldDetailedCardShow(false);
 						}}
@@ -63,23 +74,23 @@ const MovieDetailedCard = (props) => {
 					<span className="modal-movie-poster-container">
 						<img
 							className="modal-movie-poster"
-							src={moviePosterURL}
+							src={movie.posterUrl}
 							alt="Movie Poster"
 						/>
 					</span>
 					<div className="modal-movie-description-text">
-						<p style={{ marginTop: "10px", marginBottom: "10px" }}>
-							<span style={{ fontWeight: "bold" }}>Release Date: </span>
-							<span>{movieReleaseDate}</span>
+						<p style={{marginTop: "10px", marginBottom: "10px"}}>
+							<span style={{fontWeight: "bold"}}>Release Date: </span>
+							<span>{movie.releaseDate}</span>
 						</p>
-						<p>{movieOverView}</p>
+						<p>{movie.overview}</p>
 						<span>
-							<span style={{ fontWeight: "bold" }}>{movieRating}</span>
-							&nbsp;/&nbsp;10&nbsp;({movieVoteCount} total votes)
+							<span style={{fontWeight: "bold"}}>{movie.rating}</span>
+							&nbsp;/&nbsp;10&nbsp;({movie.voteCount} total votes)
 						</span>
 					</div>
 				</div>
-			</article>
+			</article>) : loading ? (<>Loading...</>) : (<>Could not load movie details. Sorry!</>)}
 		</div>
 	);
 };

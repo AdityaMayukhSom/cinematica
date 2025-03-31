@@ -1,22 +1,31 @@
 import axios from 'axios'
-const handler = async function (event) {
 
-	const BASE_URL = process.env.TMDB_BASE_URL;
+const handler = async function (event) {
 	const API_KEY = process.env.TMDB_API_KEY;
 	const movieID = event.queryStringParameters.movieID;
-	const DETAIL_SEARCH_URL = "".concat(BASE_URL, "movie/", movieID, "?api_key=", API_KEY, "&language=en-US");
+	const DETAIL_SEARCH_URL = "".concat("https://api.themoviedb.org/3/movie/", movieID);
+
+	if(!API_KEY) {
+		throw new Error("-------- TMDB API KEY NOT PRESENT --------");
+	}
+
 	try {
-		const { data } = await axios.get(DETAIL_SEARCH_URL)
+		const {data} = await axios.get(DETAIL_SEARCH_URL, {
+			params: {
+				'api_key': API_KEY,
+				'language': 'en-US'
+			}
+		})
 		return {
 			statusCode: 200,
-			body: JSON.stringify({ movieDetails: data })
+			body: JSON.stringify({movieDetails: data})
 		}
-	} catch {
-		console.log(error)
+	} catch(error) {
+		console.error(error)
 		return {
 			statusCode: 500,
-			body: JSON.stringify({ msg: error.message }),
+			body: JSON.stringify({msg: error.message}),
 		}
 	}
 }
-module.exports = { handler }
+module.exports = {handler}

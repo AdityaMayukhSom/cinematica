@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import MovieCard from "./MovieCard";
 import MovieDetailedCard from "./MovieDetailedCard";
 
@@ -10,12 +10,12 @@ function TrendingMovies(props) {
 
 	async function getTrendingMovieInfo() {
 		try {
-			const result = await fetch(`/.netlify/functions/gettrendingmoviesinfo`)
+			const result = await fetch(`/.netlify/functions/get-trending-movies-info`)
 			const convertedJsonData = await result.json();
 			const data = convertedJsonData.trendingMovies;
 			setSearchResults(
 				data.results.map((_, index) => {
-					if (data.results[index].poster_path) {
+					if(data.results[index].poster_path) {
 						return (
 							<MovieCard
 								setShouldDetailedCardShow={setShouldDetailedCardShow}
@@ -33,7 +33,7 @@ function TrendingMovies(props) {
 				}
 				)
 			)
-		} catch (err) {
+		} catch(err) {
 			console.log(err);
 		};
 	}
@@ -50,7 +50,7 @@ function TrendingMovies(props) {
 				console.log(data);
 				setSearchResults(
 					data.results.map((_, index) => {
-						if (data.results[index].poster_path) {
+						if(data.results[index].poster_path) {
 							return (
 								<MovieCard
 									setShouldDetailedCardShow={setShouldDetailedCardShow}
@@ -75,7 +75,7 @@ function TrendingMovies(props) {
 	}
 
 	useEffect(() => {
-		if (props.searchMovieName !== "") {
+		if(props.searchMovieName !== "") {
 			setTitleText(`Results for ${props.searchMovieName.replace("+", " ")}...`);
 			searchMovie(props.searchMovieName);
 		}

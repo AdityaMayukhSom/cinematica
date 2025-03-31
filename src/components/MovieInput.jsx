@@ -1,5 +1,8 @@
+import React from "react";
+
 const MovieInput = (props) => {
-	function handleSubmit(e) {
+	/** @type {React.FormEventHandler} */
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		let enteredMovieName = e.target[1].value.trim().toLowerCase().replace(/\s/g, "+");
 		props.setSearchMovieName(enteredMovieName);
@@ -8,7 +11,7 @@ const MovieInput = (props) => {
 		<form
 			className="search-box-container"
 			id="nameInputForm"
-			onSubmit={(e) => handleSubmit(e)}
+			onSubmit={handleSubmit}
 		>
 			<button type="submit" className="search-box-submit-button">
 				<svg

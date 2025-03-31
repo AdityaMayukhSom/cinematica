@@ -1,9 +1,9 @@
-import { useRef } from "react";
+import React, {useRef} from "react";
 
 /* this function returns the shortened name of the movies upto the given specific name */
 const MovieCard = (props) => {
 	const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780";
-	let movieContainer = useRef();
+	let movieContainer = useRef(null);
 	return (
 		/* This card is the one which is shown on initial pageload i.e. trending movies page */
 		/* this card contains the movie poster, movie name and movie rating */
